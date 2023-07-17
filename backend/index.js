@@ -1,0 +1,25 @@
+const express = require("express");
+const app = express();
+var bodyParser = require("body-parser");
+const cors = require("cors");
+const posterrouter = require("./router/PosterRouter");
+const prospectrouter = require("./router/ProspectRouter");
+const checkoutrouter = require("./router/CheckoutRouter");
+const cartRouter = require("./router/CartRouter");
+const wishlistRouter = require("./router/WishlistRouter");
+app.use(cors());
+app.use(bodyParser());
+app.get("/", posterrouter.insertposterdata);
+app.get("/getalldatas/:page", posterrouter.getallposters);
+app.get("/getallpostersall", posterrouter.getallpostersall);
+app.get("/getsingledata/:id", posterrouter.getsingleposter);
+app.get("/getpostersbytitle/:title", posterrouter.getpostersbytitle);
+app.post("/insertprospectdata", prospectrouter.insertprospectdata);
+app.post("/insertcheckoutdata", checkoutrouter.insertcheckoutdata);
+app.post("/insertcartdata", cartRouter.insertcartdata);
+app.post("/insertwishlistdata", wishlistRouter.insertwishlistdata);
+app.get("/fetchwishlistdetails/:id", wishlistRouter.fetchwishlistdetails);
+app.put("/updateprospectdata/:id", prospectrouter.updateprospectdata);
+app.delete("/removewishlistdetails/:id", wishlistRouter.removewishlistdetails);
+
+app.listen(5000);

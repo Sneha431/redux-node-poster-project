@@ -1,0 +1,31 @@
+const mongoose = require("mongoose");
+const posterSchema = new mongoose.Schema({
+  Title: String,
+  Year: String,
+  Rated: String,
+  Released: String,
+  Runtime: String,
+  Genre: String,
+  Director: String,
+  Writer: String,
+  Actors: String,
+  Plot: String,
+  Language: String,
+  Country: String,
+  Awards: String,
+  Poster: String,
+  Ratings: Object,
+  Metascore: String,
+  imdbRating: String,
+  imdbVotes: String,
+  imdbID: String,
+  Type: String,
+  DVD: String,
+  BoxOffice: String,
+  Production: String,
+  Website: String,
+  price: String,
+  quantity: Number,
+});
+
+module.exports = mongoose.model("Posterdataitem", posterSchema);
