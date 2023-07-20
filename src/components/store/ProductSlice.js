@@ -14,10 +14,13 @@ const productSlice = createSlice({
     ratings: [],
     searchdata: [],
     wishlistproduct: [],
+    wishlistproductall: [],
     status: STATUSES.IDLE,
     images: [],
     totalresult: 0,
+    totalresultwish: 0,
     size: 0,
+    msg: "",
   },
   reducers: {
     setproducts(state, action) {
@@ -28,6 +31,9 @@ const productSlice = createSlice({
     },
     settotalresult(state, action) {
       state.totalresult = action.payload;
+    },
+    settotalresultwish(state, action) {
+      state.totalresultwish = action.payload;
     },
     setsingleproduct(state, action) {
       state.singledata = action.payload;
@@ -47,6 +53,9 @@ const productSlice = createSlice({
       // }
       state.wishlistproduct = action.payload;
     },
+    setwishlistproductall(state, action) {
+      state.wishlistproductall = action.payload;
+    },
     removefromwishlist(state, action) {
       state.wishlistproduct = state.wishlistproduct.filter(
         (item) => item.imdbID !== action.payload
@@ -58,19 +67,25 @@ const productSlice = createSlice({
     setpagesize(state, action) {
       state.size = action.payload;
     },
+    setmsg(state, action) {
+      state.msg = action.payload;
+    },
   },
 });
 export const {
   setimages,
   setproducts,
+  setmsg,
   setstatus,
   settotalresult,
   setsingleproduct,
   setratings,
   searchproducts,
   setwishlistproduct,
+  setwishlistproductall,
   removefromwishlist,
   setpagesize,
+  settotalresultwish,
 } = productSlice.actions;
 export default productSlice.reducer;
 
@@ -129,6 +144,22 @@ export function fetchproductdetails(imdbid) {
     }
   };
 }
+export function fetchwishlistdetailsall() {
+  return async function fetchwishlistproductsthunk(dispatch, getstate) {
+    try {
+      await axios
+        .get(`http://localhost:5000/fetchwishlistdetailsall`)
+
+        .then((response) => {
+          dispatch(setwishlistproductall(response.data));
+          dispatch(settotalresultwish(response.data.total));
+        });
+    } catch (err) {
+      console.log(err);
+      dispatch(setstatus(STATUSES.ERROR));
+    }
+  };
+}
 export function fetchwishlistdetails(page) {
   return async function fetchwishlistproductsthunk(dispatch, getstate) {
     try {
@@ -151,9 +182,10 @@ export function insertwishlistdata(data) {
     dispatch(setstatus(STATUSES.LOADING));
 
     let { Title, Year, price, quantity, Poster, imdbID } = data;
+
     try {
       await axios
-        .post(`http://localhost:5000/insertwishlistdata`, {
+        .post(`http://localhost:5000/insertwishlistdata/`, {
           Title: Title,
           Year: Year,
           Poster: Poster,
@@ -164,7 +196,11 @@ export function insertwishlistdata(data) {
 
         .then((response) => {
           console.log(response);
-          //dispatch(setwishlistproduct(response.data[0]));
+          if (response.data.msg) {
+            dispatch(setmsg(response.data.msg));
+          } else {
+            dispatch(setmsg("Added to the Wishlist"));
+          }
         });
     } catch (err) {
       console.log(err);
@@ -182,6 +218,7 @@ export function removefromwishlistdata(id, imdbID) {
 
         .then((response) => {
           dispatch(removefromwishlist(imdbID));
+
           console.log(imdbID);
         });
     } catch (err) {

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { fetchwishlistdetailsall } from "./store/ProductSlice";
 function Navbar() {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const { wishlistproduct } = useSelector((state) => state.product);
+  const { totalresultwish } = useSelector((state) => state.product);
   const [active, setactive] = useState("Home");
   const [toggle, settoggle] = useState(false);
   const settogglefunc = () => {
     settoggle(!toggle);
   };
+  useEffect(() => {
+    dispatch(fetchwishlistdetailsall());
+    console.log(totalresultwish);
+  }, []);
   return (
     <>
       <header className="site-header">
@@ -27,11 +32,13 @@ function Navbar() {
               <i className="fa fa-bars"></i>
             </button>
             <ul className="menu" style={{ display: toggle ? "block" : "none" }}>
-              <li className="menu-item">
+              <li
+                className={`menu-item ${
+                  active === "Home" ? "activeclass" : ""
+                }`}
+              >
                 <Link
-                  className={`nav-link ${
-                    active === "Home" ? "activeclass" : ""
-                  }`}
+                  className="nav-link"
                   aria-current="page"
                   to="/"
                   onClick={() => setactive("Home")}
@@ -39,11 +46,13 @@ function Navbar() {
                   Home
                 </Link>
               </li>
-              <li className="menu-item">
+              <li
+                className={`menu-item ${
+                  active === "List" ? "activeclass" : ""
+                }`}
+              >
                 <Link
-                  className={`nav-link ${
-                    active === "List" ? "activeclass" : ""
-                  }`}
+                  className="nav-link"
                   to="/MovieList"
                   onClick={() => setactive("List")}
                 >
@@ -51,11 +60,13 @@ function Navbar() {
                 </Link>
               </li>
 
-              <li className="menu-item">
+              <li
+                className={`menu-item ${
+                  active === "Cart" ? "activeclass" : ""
+                }`}
+              >
                 <Link
-                  className={`nav-link ${
-                    active === "Cart" ? "activeclass" : ""
-                  }`}
+                  className="nav-link"
                   to="/cart"
                   onClick={() => setactive("Cart")}
                 >
@@ -65,17 +76,19 @@ function Navbar() {
                   </span>
                 </Link>
               </li>
-              <li className="menu-item">
+              <li
+                className={`menu-item ${
+                  active === "Wish" ? "activeclass" : ""
+                }`}
+              >
                 <Link
-                  className={`nav-link ${
-                    active === "Wish" ? "activeclass" : ""
-                  }`}
+                  className="nav-link"
                   to="/wishlist"
                   onClick={() => setactive("Wish")}
                 >
                   Wishlist
                   <span className="top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {wishlistproduct.length}
+                    {totalresultwish}
                   </span>
                 </Link>
               </li>

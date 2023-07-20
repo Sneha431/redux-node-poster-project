@@ -8,7 +8,7 @@ const checkoutrouter = require("./router/CheckoutRouter");
 const cartRouter = require("./router/CartRouter");
 const wishlistRouter = require("./router/WishlistRouter");
 app.use(cors());
-app.use(bodyParser());
+app.use(bodyParser.json());
 app.get("/", posterrouter.insertposterdata);
 app.get("/getalldatas/:page", posterrouter.getallposters);
 app.get("/getallpostersall", posterrouter.getallpostersall);
@@ -19,6 +19,7 @@ app.post("/insertcheckoutdata", checkoutrouter.insertcheckoutdata);
 app.post("/insertcartdata", cartRouter.insertcartdata);
 app.post("/insertwishlistdata", wishlistRouter.insertwishlistdata);
 app.get("/fetchwishlistdetails/:id", wishlistRouter.fetchwishlistdetails);
+app.get("/fetchwishlistdetailsall", wishlistRouter.fetchwishlistdetailsall);
 app.put("/updateprospectdata/:id", prospectrouter.updateprospectdata);
 app.delete("/removewishlistdetails/:id", wishlistRouter.removewishlistdetails);
 

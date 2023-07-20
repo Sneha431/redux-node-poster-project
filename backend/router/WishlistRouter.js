@@ -7,12 +7,21 @@ require("../db/config");
 const insertwishlistdata = router.post(
   "/insertwishlistdata",
   async (req, res) => {
-    try {
-      let wishlistdata = new WishlistSchema(req.body);
-      let result = await wishlistdata.save();
-      res.send(result);
-    } catch (error) {
-      res.send(error);
+    let wishlistdataexist = await WishlistSchema.find({
+      imdbID: { $exists: true },
+    });
+
+    if (wishlistdataexist) {
+      let wishlistdata = await WishlistSchema.find({ imdbID: req.body.imdbID });
+
+      if (Object.keys(wishlistdata).length === 0) {
+        let schemadata = new WishlistSchema(req.body);
+        let result = await schemadata.save();
+
+        res.send(result);
+      } else {
+        res.send({ msg: "Already Exists In Wishlist" });
+      }
     }
   }
 );
@@ -52,6 +61,18 @@ const fetchwishlistdetails = router.get(
     }
   }
 );
+const fetchwishlistdetailsall = router.get(
+  "/fetchwishlistdetailsall",
+  async (req, res) => {
+    try {
+      let postersdata = await WishlistSchema.find();
+
+      res.json({ postersdata, total: postersdata.length });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+);
 
 const removewishlistdetails = router.delete(
   "/removewishlistdetails/:id",
@@ -71,4 +92,5 @@ module.exports = {
   insertwishlistdata,
   fetchwishlistdetails,
   removewishlistdetails,
+  fetchwishlistdetailsall,
 };

@@ -75,7 +75,9 @@ const getpostersbytitle = router.get(
     try {
       let title = req.params.title;
       if (title !== "") {
-        let postersdata = await PosterSchema.find({ Title: { $regex: title } });
+        let postersdata = await PosterSchema.find({
+          Title: { $regex: title, $options: "i" },
+        });
 
         res.send(postersdata);
       }
