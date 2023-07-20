@@ -18,7 +18,7 @@ function LatestMovie(props) {
               <div className="col-sm-6 col-md-3" key={item.imdbID}>
                 <div className="latest-movie">
                   <img src={item.Poster} alt={item.Title} />
-                  <button>
+                  <button className="btn btn-default">
                     {" "}
                     <Link to={`/MovieDetails/${item.imdbID}`}>View </Link>
                   </button>

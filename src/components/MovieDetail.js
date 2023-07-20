@@ -105,7 +105,10 @@ function MovieDetail() {
               </div>
 
               <p>${singledata.price}</p>
-              <button onClick={() => dispatch(addtocart(singledata))}>
+              <button
+                className="btn-primary"
+                onClick={() => dispatch(addtocart(singledata))}
+              >
                 Add To Cart
               </button>
             </div>
