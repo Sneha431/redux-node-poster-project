@@ -55,28 +55,6 @@ const MovieList = () => {
       setmsg(true);
     }
   };
-  // const onsearchhandler = (e) => {
-  //   dispatch(searchproductbytitle(e.target.value));
-
-  //   setposter(searchdata);
-  //   console.log(searchdata);
-  // };
-  // const onsearchhandler = (e) => {
-  //   //  e.preventDefault();
-  //   setSearchInput(e.target.value);
-  //   dispatch(searchproductbytitle(searchInput));
-  //   // console.log(searchInput.length);
-  //   // if (searchInput.length > 0) {
-  //   //   dispatch(searchproductbytitle(searchInput));
-  //   //   setposter(searchdata);
-  //   // } else if (searchInput.length <= 1) {
-  //   //   setposter(searchdata);
-  //   // }
-  // };
-
-  // const onsubmit = () => {
-  //   setposter(searchdata);
-  // };
 
   return (
     <>

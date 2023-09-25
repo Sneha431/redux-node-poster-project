@@ -87,12 +87,6 @@ const Cart = () => {
   };
   return (
     <div className="CartContainer">
-      <h4>
-        Cart <i className="fa fa-arrow-right" aria-hidden="true"></i>Prospect
-        <i className="fa fa-arrow-right" aria-hidden="true"></i>
-        Checkout <i className="fa fa-arrow-right" aria-hidden="true"></i>Order
-        Confirmation
-      </h4>
       {alertmsg && (
         <div
           className={`alert ${
@@ -181,35 +175,34 @@ const Cart = () => {
         })}
       {cart.length === 0 && <p>Cart is Empty . Continue Shopping</p>}
 
-      <hr />
       <div className="checkout">
         <div className="total">
           <div>
             <div className="Subtotal" style={{ color: "white" }}>
-              Sub-Total
-            </div>
-            <div className="items" style={{ color: "white" }}>
-              {totalqty} items
+              <p>Sub-Total</p>
             </div>
           </div>
+
           <div
-            className="total-amount"
+            className="total-amount "
             style={{ color: "white" }}
             ref={totalp}
             price={totalprice}
           >
-            ${totalprice}
+            <p style={{ color: "black", fontSize: "20px", float: "right" }}>
+              {" "}
+              ${totalprice} ({totalqty} items)
+            </p>
+            <button type="button" className="button">
+              <Link style={{ textDecoration: "none" }} onClick={submitcartdata}>
+                Go To Next Step
+              </Link>
+            </button>
           </div>
         </div>
         {/* <div>
           <div ref={paypal}></div>
         </div> */}
-        <button type="button" className="button">
-          <Link style={{ textDecoration: "none" }} onClick={submitcartdata}>
-            {" "}
-            Go To Next Step{" "}
-          </Link>
-        </button>
       </div>
     </div>
   );

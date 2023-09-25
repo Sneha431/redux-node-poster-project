@@ -59,7 +59,22 @@ function Navbar() {
                   Movies
                 </Link>
               </li>
-
+              <li
+                className={`menu-item ${
+                  active === "Wish" ? "activeclass" : ""
+                }`}
+              >
+                <Link
+                  className="nav-link"
+                  to="/wishlist"
+                  onClick={() => setactive("Wish")}
+                >
+                  Wishlist
+                  <span className="top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {totalresultwish}
+                  </span>
+                </Link>
+              </li>
               <li
                 className={`menu-item ${
                   active === "Cart" ? "activeclass" : ""
@@ -78,18 +93,41 @@ function Navbar() {
               </li>
               <li
                 className={`menu-item ${
-                  active === "Wish" ? "activeclass" : ""
+                  active === "Prospect" ? "activeclass" : ""
                 }`}
               >
                 <Link
                   className="nav-link"
-                  to="/wishlist"
-                  onClick={() => setactive("Wish")}
+                  to="/prospect"
+                  onClick={() => setactive("Prospect")}
                 >
-                  Wishlist
-                  <span className="top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {totalresultwish}
-                  </span>
+                  Prospect
+                </Link>
+              </li>
+              <li
+                className={`menu-item ${
+                  active === "Checkout" ? "activeclass" : ""
+                }`}
+              >
+                <Link
+                  className="nav-link"
+                  to="/checkout"
+                  onClick={() => setactive("Checkout")}
+                >
+                  Checkout
+                </Link>
+              </li>
+              <li
+                className={`menu-item ${
+                  active === "Thanks" ? "activeclass" : ""
+                }`}
+              >
+                <Link
+                  className="nav-link"
+                  to="/thank-you"
+                  onClick={() => setactive("Thanks")}
+                >
+                  Thank You
                 </Link>
               </li>
             </ul>
